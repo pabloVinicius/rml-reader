@@ -1,8 +1,8 @@
+import Router from './router';
+
 const App = () => {
   return (
-    <div className="App">
-      teste
-    </div>
+    <Router />
   );
 }
 
