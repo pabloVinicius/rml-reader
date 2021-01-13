@@ -22,5 +22,16 @@ h1 {
 
 h2 {
   color: #6B6B6B;
+  text-align: center;
 }
 
+
+@media screen and (max-width: 710px) {
+  .main-layout {
+    padding: 0 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+}
