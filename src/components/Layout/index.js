@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
           <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/pablo-cruz-17901a177/">
             <Icon icon="linkedin" size="1.5" className="ml-3" /> 
           </a>
-          <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/pablo-cruz-17901a177/">
+          <a target="_blank" rel="noreferrer" href="https://github.com/pabloVinicius/rml-reader">
             <Icon icon="github" size="1.5" className="ml-2" />
           </a>
       </footer>
