@@ -3,9 +3,9 @@ import { renderToString } from 'react-dom/server';
 import { Alert, Button, Spinner } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import XMLParser from 'react-xml-parser';
+import Document from '../Document';
 import { formatXMLData, readFile, documentPageStyles } from './utils';
 import './styles.css';
-import Document from '../Document';
 
 const Dropzone = () => {
   const [showError, setShowError] = useState(false);
@@ -24,7 +24,7 @@ const Dropzone = () => {
 
     const script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
-    script.innerHTML = "document.querySelector('#print-button').addEventListener('click', () => window.print());"
+    script.innerHTML = "document.querySelector('#print-button').addEventListener('click', () => {window.print(); window.close();});"
 
     const newWindow = window.open('', 'Impressão de Documento');
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const DocumentPage = ({ data }) => {
-  console.log({ data })
   const { date, footer, labels, months, table } = data;
   return (
     <div className="wrapper">
@@ -15,96 +14,43 @@ const DocumentPage = ({ data }) => {
         </div>
         <div className="labels">
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[0]}</span>
+            <span>{labels[1]}</span>
           </div>
-       
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[2]}</span>
+            <span>{labels[3]}</span>
           </div>
-       
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[4]}</span>
+            <span>{labels[5]}</span>
+            <span>{labels[6]}</span>
+            <span>{labels[7]}</span>
           </div>
-       
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[8]}</span>
+            <span>{labels[9]}</span>
+            <span>{labels[10]}</span>
+            <span>{labels[11]}</span>
           </div>
-       
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[12]}</span>
+            <span>{labels[13]}</span>
+            <span>{labels[14]}</span>
+            <span>{labels[15]}</span>
           </div>
-       
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[16]}</span>
+            <span>{labels[17]}</span>
           </div>
-       
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[18]}</span>
+            <span>{labels[19]}</span>
+            <span>{labels[20]}</span>
           </div>
-       
           <div className="labels-line">
-            <span>
-              teste
-            </span>
-            <span>
-              teste
-            </span>
+            <span>{labels[21]}</span>
+            <span>{labels[22]}</span>
           </div>
         </div>
         <div className="section">
@@ -112,7 +58,6 @@ const DocumentPage = ({ data }) => {
           <div className="months">
             {months.map((month, monthId) => (
               <span key={monthId}>{month}</span>
-
             ))}
           </div>
         </div>

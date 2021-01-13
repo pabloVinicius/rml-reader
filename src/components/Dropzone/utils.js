@@ -1,3 +1,4 @@
+import he from 'he';
 export const readFile = (file) => new Promise((res, rej) => {
   const reader = new FileReader();
  
@@ -18,23 +19,21 @@ export const formatXMLData = (xmlData) => {
   const dateInfo = data[11].children[0].children;
 
   const labelsText = labels.reduce((acc, cur) => {
-    const elements = cur.children.map(ch => ch.value);
+    const elements = cur.children.map(ch => he.decode(ch.value));
     return [...acc, ...elements];
   }, []);
   
   const monthsText = data[5].getElementsByTagName('col').map((el) => el.value);
 
   const tableTexts = tableData.map((el) => 
-    el.children.map((ch) => ch.value)
+    el.children.map((ch) => he.decode(ch.value))
   );
 
   const footerTexts = footerData.map((el) => 
-    el.children.map((ch) => ch.value)
+    el.children.map((ch) => he.decode(ch.value))
   );
 
-  const dateTexts = dateInfo.map((el) => el.value);
-
-
+  const dateTexts = dateInfo.map((el) => he.decode(el.value));
 
   return {
     labels: labelsText,
@@ -94,7 +93,7 @@ button {
   height: 297mm;
   max-height: 297mm;
   overflow: hidden;
-  padding: 25mm 20mm 10mm 20mm;
+  padding: 25mm 15mm 10mm 20mm;
   
 }
 
@@ -103,22 +102,17 @@ button {
   margin-bottom: 30px;
 }
 
-.labels {
-  
-}
-
 .labels-line {
   display: flex;
 }
 
 .labels-line > span {
   flex: 1;
-  font-size: 12px;
   font-weight: bold;
 }
 
 .labels-line > span:not(:last-of-type) {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .section {
@@ -126,7 +120,6 @@ button {
 }
 
 .section > h3 {
-  font-size: 12px;
   text-align: center;
   margin: 0;
   margin-bottom: 20px;
