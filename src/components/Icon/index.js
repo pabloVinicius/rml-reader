@@ -1,4 +1,3 @@
-import React from 'react';
 import icons from '../../static/icons/sprites.svg';
 
 const Icon = ({ className, icon, size, onClick, style }) => {

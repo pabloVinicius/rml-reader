@@ -1,4 +1,3 @@
-import React from 'react';
 import Icon from '../Icon';
 import './style.css';
 
@@ -9,7 +8,7 @@ const Layout = ({ children }) => {
         <h1>Visualizador RML</h1>
         <h2>Conectividade Social Caixa</h2>
       </header>
-      <section className="flex-fill">
+      <section className="flex-fill d-flex align-items-center">
         {children}
       </section>
       <section className="about d-flex flex-column align-items-center">

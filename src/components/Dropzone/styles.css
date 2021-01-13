@@ -1,0 +1,31 @@
+.dropzone {
+  cursor: pointer;
+  height: 10rem;
+  background: #F3F3F3;
+  border: 1px dashed #474747;
+}
+
+.dropzone-container {
+  position: relative;
+}
+
+.dropzone-alert {
+  position: absolute !important;
+  width: 100%;
+  bottom: 100%;
+}
+
+.dropzone-container > button {
+  position: absolute !important;
+  width: 100%;
+  top: 100%;
+}
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(25, 25, 25, 0.15);
+}
