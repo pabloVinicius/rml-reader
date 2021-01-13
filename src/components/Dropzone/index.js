@@ -10,13 +10,13 @@ import Document from '../Document';
 const Dropzone = () => {
   const [showError, setShowError] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [formattedValue, setFormattedValue] = useState();
   const [filename, setFilename] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const printFile = async ({ filter } = {}) => {
-   
+  const printFile = () => {
     const container = document.createElement('div');
-    container.innerHTML = renderToString(<Document />);
+    container.innerHTML = renderToString(<Document data={formattedValue} />);
 
     const styles = document.createElement('style');
     styles.setAttribute('type', 'text/css');
@@ -31,28 +31,33 @@ const Dropzone = () => {
     newWindow.document.body.appendChild(container);
     newWindow.document.body.appendChild(script);
     newWindow.document.head.appendChild(styles);
-    
+  };
+
+  const clearState = () => {
+    setShowError(false);
+    setShowButton(false);
+    setFormattedValue();
+    setFilename('');
   };
 
   const onDrop = useCallback(async ([file]) => {
-    printFile();
-    /* try {
+    try {
       setLoading(true);
-      setShowError(false);
-      setShowButton(false);
+      clearState();  
 
       const fileString = await readFile(file);
       setFilename(file.name);
       
       const xml = new XMLParser().parseFromString(fileString);
       const formatted = formatXMLData(xml);
-      console.log({ formatted })
+      setFormattedValue(formatted);
+      setShowButton(true);
       
     } catch (e) {
       setShowError(true);
     } finally {
       setLoading(false);
-    } */
+    }
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -90,6 +95,7 @@ const Dropzone = () => {
           variant="success"
           size="lg"
           block
+          onClick={printFile}
         >
           Visualizar
         </Button>

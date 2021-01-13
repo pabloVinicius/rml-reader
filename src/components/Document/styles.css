@@ -1,51 +1,4 @@
-export const readFile = (file) => new Promise((res, rej) => {
-  const reader = new FileReader();
- 
-  reader.onabort = () => rej('Aborted');
-  reader.onerror = () => rej('Error');
-  reader.onload = () => {
-    const fileText = reader.result;
-    res(fileText);
-  }
-  reader.readAsText(file);
-});
-
-export const formatXMLData = (xmlData) => {
-  const data = xmlData.getElementsByTagName('relatorio')[0].children;
-  const labels = xmlData.getElementsByTagName('legenda');
-  const [tableTitle, ...tableData] = data[7].children;
-  const [footerTitle, ...footerData] = data[9].children;
-  const dateInfo = data[11].children[0].children;
-
-  const labelsText = labels.reduce((acc, cur) => {
-    const elements = cur.children.map(ch => ch.value);
-    return [...acc, ...elements];
-  }, []);
-  
-  const monthsText = data[5].getElementsByTagName('col').map((el) => el.value);
-
-  const tableTexts = tableData.map((el) => 
-    el.children.map((ch) => ch.value)
-  );
-
-  const footerTexts = footerData.map((el) => 
-    el.children.map((ch) => ch.value)
-  );
-
-  const dateTexts = dateInfo.map((el) => el.value);
-
-
-
-  return {
-    labels: labelsText,
-    months: monthsText,
-    table: tableTexts,
-    footer: footerTexts,
-    date: dateTexts,
-  };
-};
-
-export const documentPageStyles = `* {
+* {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
@@ -197,4 +150,4 @@ h2 {
   .container {
     border: none;
   }
-}`;
+}
