@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background: #fafafa;
+}
+
+body,
+#root {
+  height: 100vh;
+}
+
+@media(max-width: 1366px) {
+  html {
+    font-size: 12px;
+  }
+}
+@media(max-width: 1242px) {
+  html {
+    font-size: 10px;
+  }
+}
+@media(max-width: 908px) {
+  html {
+    font-size: 8px;
+  }
+}
+@media(max-width: 710px) {
+  html {
+    font-size: 13px;
+  }
+}

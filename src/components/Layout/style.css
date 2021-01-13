@@ -1,0 +1,26 @@
+.main-layout {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.header {
+  height: 10rem;
+}
+
+.about > p {
+  font-size: 0.95rem;
+  text-align: justify;
+}
+
+.footer {
+  height: 4rem;
+}
+
+h1 {
+  color: #333333;
+}
+
+h2 {
+  color: #6B6B6B;
+}
+
