@@ -7,6 +7,9 @@ Sugestões, criticas e PRs são muito bem vindos.
 ## Live
 https://visualizadorrml.data.eti.br/
 
+## Documentos suportados
+[x] FGTS - Extrato de Conta Vinculada para Fins Recisórios
+
 ## Comandos comuns
 ### Instalar dependências
 ```bash

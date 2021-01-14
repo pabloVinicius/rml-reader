@@ -13,7 +13,14 @@
 }
 
 .footer {
+  position: fixed;
   height: 4rem;
+  bottom: 0;
+  right: 1rem;
+}
+
+.content {
+  min-height: 30rem;
 }
 
 h1 {
@@ -33,5 +40,12 @@ h2 {
 
   h2 {
     font-size: 1.5rem !important;
+  }
+
+  .footer {
+    position: relative;
+    bottom: unset;
+    right: unset;
+    padding: 1rem 0;
   }
 }

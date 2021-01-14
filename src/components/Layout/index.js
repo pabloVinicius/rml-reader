@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
         <h1>Visualizador RML</h1>
         <h2>Conectividade Social Caixa</h2>
       </header>
-      <section className="flex-fill d-flex align-items-center">
+      <section className="content d-flex align-items-center">
         {children}
       </section>
       <section className="about d-flex flex-column align-items-center">
@@ -23,7 +23,15 @@ const Layout = ({ children }) => {
           para gerar um arquivo com uma formatação similar ao gerado pelo RML Web 2.0, disponível para visualização e impressão.
         </p>
       </section>
-      <footer className="footer d-flex w-100 align-items-center justify-content-center">
+      <section className="about d-flex flex-column align-items-center">
+        <h4>
+          Documentos suportados
+        </h4>
+        <ul className="w-100">
+          <li>FGTS - Extrato de Conta Vinculada para Fins Recisórios</li>
+        </ul>
+      </section>
+      <footer className="footer d-flex align-items-center justify-content-center">
           Desenvolvido por Pablo Cruz 
           <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/pablo-cruz-17901a177/">
             <Icon icon="linkedin" size="1.5" className="ml-3" /> 
