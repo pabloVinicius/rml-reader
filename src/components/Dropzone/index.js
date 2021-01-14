@@ -16,6 +16,7 @@ const Dropzone = () => {
   const [loading, setLoading] = useState(false);
 
   const printFile = () => {
+    window.gtag('event', 'open_print');
     const container = document.createElement('div');
     container.innerHTML = renderToString(<Document data={formattedValue} />);
 
@@ -53,9 +54,10 @@ const Dropzone = () => {
       const formatted = formatXMLData(xml);
       setFormattedValue(formatted);
       setShowButton(true);
-      
+      window.gtag('event', 'format_success');
     } catch (err) {
       Sentry.captureException(err);
+      window.gtag('event', 'format_failure');
       setError(err?.name || 'default');
     } finally {
       setLoading(false);
