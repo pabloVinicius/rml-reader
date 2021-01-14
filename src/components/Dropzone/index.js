@@ -4,11 +4,11 @@ import { Alert, Button, Spinner } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import XMLParser from 'react-xml-parser';
 import Document from '../Document';
-import { formatXMLData, readFile, documentPageStyles } from './utils';
+import { formatXMLData, readFile, documentPageStyles, errorMessages } from './utils';
 import './styles.css';
 
 const Dropzone = () => {
-  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState();
   const [showButton, setShowButton] = useState(false);
   const [formattedValue, setFormattedValue] = useState();
   const [filename, setFilename] = useState('');
@@ -34,7 +34,7 @@ const Dropzone = () => {
   };
 
   const clearState = () => {
-    setShowError(false);
+    setError();
     setShowButton(false);
     setFormattedValue();
     setFilename('');
@@ -53,8 +53,8 @@ const Dropzone = () => {
       setFormattedValue(formatted);
       setShowButton(true);
       
-    } catch (e) {
-      setShowError(true);
+    } catch (err) {
+      setError(err?.message || 'default');
     } finally {
       setLoading(false);
     }
@@ -72,14 +72,14 @@ const Dropzone = () => {
  
   return (
     <div className="d-flex flex-fill flex-column dropzone-container">
-      {showError && (
+      {error && (
         <Alert
           variant="danger"
           className="dropzone-alert"
-          onClose={() => setShowError(false)}
+          onClose={() => setError(false)}
           dismissible
         >
-          Algo deu errado no processamento do arquivo. Verifique-o e tente novamente.
+          {errorMessages[error]}
         </Alert>
       )}
       <div

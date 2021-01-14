@@ -12,6 +12,12 @@ export const readFile = (file) => new Promise((res, rej) => {
 });
 
 export const formatXMLData = (xmlData) => {
+  const type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
+  
+  if (type !== 'EXT') {
+    throw new Error('NOT_SUPPORTED');
+  }
+  
   const data = xmlData.getElementsByTagName('relatorio')[0].children;
   const labels = xmlData.getElementsByTagName('legenda');
   const [tableTitle, ...tableData] = data[7].children;
@@ -193,3 +199,8 @@ export const documentPageStyles = `
     }
   }
 `;
+
+export const errorMessages = {
+  NOT_SUPPORTED: <span>Esse tipo de documento ainda não é suportado, <a href="mailto:vinicius.pablo.18@gmail.com">me mande um email</a> com um exemplo do arquivo para que eu implemente no sistema. Verifique na lista abaixo os tipos suportados atualmente.</span>,
+  default: 'Algo deu errado no processamento do arquivo. Verifique-o e tente novamente.'
+};
