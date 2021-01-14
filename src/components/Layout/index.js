@@ -1,13 +1,21 @@
+import { useState } from 'react';
+import { Alert } from 'react-bootstrap';
 import Icon from '../Icon';
 import './style.css';
 
 const Layout = ({ children }) => {
+  const [showWarning, setShowWarning] = useState(true);
   return (
     <div className="main-layout h-100 d-flex flex-column" fluid>
       <header className="header d-flex flex-column align-items-center justify-content-center">
         <h1>Visualizador RML</h1>
         <h2>Conectividade Social Caixa</h2>
       </header>
+      {showWarning && (
+        <Alert className="mt-3" variant="warning" onClose={() => setShowWarning(false)} dismissible>
+          Atenção: esse sistema não funciona no Internet Explorer. Por favor, utilize um browser moderno, preferencialmente o Google Chrome.
+        </Alert>
+      )}
       <section className="content d-flex align-items-center">
         {children}
       </section>
