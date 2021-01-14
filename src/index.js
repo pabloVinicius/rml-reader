@@ -6,14 +6,16 @@ import App from './App';
 import './static/styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-Sentry.init({
-  dsn: "https://6cb34312abaa465e8c65babf715120e9@o322920.ingest.sentry.io/5592749",
-  autoSessionTracking: true,
-  integrations: [
-    new Integrations.BrowserTracing(),
-  ],
-  tracesSampleRate: 1.0,
-});
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    autoSessionTracking: true,
+    integrations: [
+      new Integrations.BrowserTracing(),
+    ],
+    tracesSampleRate: 1.0,
+  });
+}
 
 ReactDOM.render(
   <React.StrictMode>
