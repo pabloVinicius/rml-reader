@@ -20,18 +20,20 @@ export const formatXMLData = (xmlData) => {
     throw error;
   }
   
-  const data = xmlData.getElementsByTagName('relatorio')[0].children;
-  const labels = xmlData.getElementsByTagName('legenda');
-  const [tableTitle, ...tableData] = data[7].children;
-  const [footerTitle, ...footerData] = data[9].children;
-  const dateInfo = data[11].children[0].children;
+  const data = xmlData.getElementsByTagName('relatorio')[0].children || [];
+
+  const labels = xmlData.getElementsByTagName('legenda') || [];
+  const monthsData = data[5].getElementsByTagName('col') || [];
+  const [tableTitle, ...tableData] = data[7]?.children || [];
+  const [footerTitle, ...footerData] = data[9]?.children || [];
+  const dateInfo = data[11]?.children[0]?.children || [];
 
   const labelsText = labels.reduce((acc, cur) => {
     const elements = cur.children.map(ch => he.decode(ch.value));
     return [...acc, ...elements];
   }, []);
   
-  const monthsText = data[5].getElementsByTagName('col').map((el) => el.value);
+  const monthsText = monthsData.map((el) => el.value);
 
   const tableTexts = tableData.map((el) => 
     el.children.map((ch) => he.decode(ch.value))
