@@ -15,7 +15,9 @@ export const formatXMLData = (xmlData) => {
   const type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
   
   if (type !== 'EXT') {
-    throw new Error('NOT_SUPPORTED');
+    const error = new Error(`Document type not supported: ${type}`);
+    error.name = 'NOT_SUPPORTED';
+    throw error;
   }
   
   const data = xmlData.getElementsByTagName('relatorio')[0].children;

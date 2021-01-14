@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import * as Sentry from "@sentry/react";
 import { renderToString } from 'react-dom/server';
 import { Alert, Button, Spinner } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
@@ -54,7 +55,8 @@ const Dropzone = () => {
       setShowButton(true);
       
     } catch (err) {
-      setError(err?.message || 'default');
+      Sentry.captureException(err);
+      setError(err?.name || 'default');
     } finally {
       setLoading(false);
     }
