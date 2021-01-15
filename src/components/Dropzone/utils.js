@@ -29,21 +29,21 @@ export const formatXMLData = (xmlData) => {
   const dateInfo = data[11]?.children[0]?.children || [];
 
   const labelsText = labels.reduce((acc, cur) => {
-    const elements = cur.children.map(ch => he.decode(ch.value));
+    const elements = cur.children.map(ch => he.decode(ch?.value || ''));
     return [...acc, ...elements];
   }, []);
   
-  const monthsText = monthsData.map((el) => el.value);
+  const monthsText = monthsData.map((el) => el?.value || '');
 
   const tableTexts = tableData.map((el) => 
-    el.children.map((ch) => he.decode(ch.value))
+    el.children.map((ch) => he.decode(ch?.value || ''))
   );
 
   const footerTexts = footerData.map((el) => 
-    el.children.map((ch) => he.decode(ch.value))
+    el.children.map((ch) => he.decode(ch?.value || ''))
   );
 
-  const dateTexts = dateInfo.map((el) => he.decode(el.value));
+  const dateTexts = dateInfo.map((el) => he.decode(el?.value || ''));
 
   return {
     labels: labelsText,
