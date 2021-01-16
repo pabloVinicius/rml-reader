@@ -1,0 +1,20 @@
+demand.supply, LCTjh8MKmibkNuRsZ, DIRECT
+relabe.com, LCTjh8MKmibkNuRsZ, DIRECT
+google.com, pub-3831894559014614, DIRECT, f08c47fec0942fa0
+sulvo.com, LCTjh8MKmibkNuRsZ, DIRECT
+surgeprice.com, LCTjh8MKmibkNuRsZ, DIRECT
+aps.amazon.com, 66ef05f7-ad53-48f6-873a-ac7543370392, DIRECT
+rubiconproject.com, 19818, DIRECT, 0bfd66d529a55807
+sovrn.com, 326635, DIRECT, fafdf38b16bf6b2b
+lijit.com, 326635, DIRECT, fafdf38b16bf6b2b
+lijit.com, 326635-eb, DIRECT, fafdf38b16bf6b2b
+adingo.jp, 24359, DIRECT
+adcolony.com, 801e49d1be83b5f9, RESELLER, 1ad675c9de6b5176
+admixer.net, 3bc509b2-6568-4bd8-a997-9859ba0c9118, RESELLER
+adtech.com,12068,RESELLER,e1a5b5b6e3255540
+ad-generation.jp,12474,RESELLER,7f4ea9029ac04e53
+districtm.io,100962,RESELLER,3fd707be9c4527c3
+rhythmone.com,1654642120,RESELLER,a670c89d4a324e47
+smaato.com,1100044650,RESELLER,07bcf65f187117b4
+yahoo.com,55029,RESELLER,e1a5b5b6e3255540
+webeyemob.com, 70080, RESELLER
