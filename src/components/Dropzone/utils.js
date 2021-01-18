@@ -52,7 +52,7 @@ export const formatXMLData = (xmlData) => {
       return [...acc, ...elements];
     }, []);
     
-    const monthsText = monthsData.map((el) => el?.value || '');
+    const monthsText = monthsData.map((el) => he.decode(el?.value) || '');
   
     const tableTexts = tableData.map((el) => 
       el.children.map((ch) => he.decode(ch?.value || ''))
