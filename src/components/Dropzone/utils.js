@@ -27,15 +27,7 @@ export const chunkArray = (myArray, chunkSize, strict) => {
   return results;
 };
 
-export const formatXMLData = (xmlData) => {
-  const type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
-  
-  if (type !== 'EXT') {
-    const error = new Error(`Document type not supported: ${type}`);
-    error.name = 'NOT_SUPPORTED';
-    throw error;
-  }
-  
+const formatEXT = (xmlData) => {
   const data = xmlData.getElementsByTagName('dados');
 
   const documents = chunkArray(data, 10, true);
@@ -74,6 +66,24 @@ export const formatXMLData = (xmlData) => {
   });
 
   return formatted;
+};
+
+const docTypesFunctions = {
+  EXT: formatEXT,
+};
+
+export const formatXMLData = (xmlData) => {
+  const type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
+
+  const formatter = docTypesFunctions[type];
+
+  if (!formatter) {
+    const error = new Error(`Document type not supported: ${type}`);
+    error.name = 'NOT_SUPPORTED';
+    throw error;
+  }
+
+  return { type, data: formatter(xmlData) };
 };
 
 export const documentPageStyles = `

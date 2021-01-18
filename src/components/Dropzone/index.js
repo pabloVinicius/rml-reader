@@ -18,7 +18,14 @@ const Dropzone = () => {
   const printFile = () => {
     window.gtag('event', 'open_print');
     const container = document.createElement('div');
-    container.innerHTML = renderToString(<Document data={formattedValue} />);
+
+    const documents = {
+      EXT: Document,
+    };
+
+    const MyDocument = documents[formattedValue.type];
+
+    container.innerHTML = renderToString(<MyDocument data={formattedValue.data} />);
 
     const styles = document.createElement('style');
     styles.setAttribute('type', 'text/css');
@@ -66,12 +73,9 @@ const Dropzone = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    maxFiles:
-    1,
-    multiple:
-    false,
-    accept:
-    '.rml, .RML'
+    maxFiles: 1,
+    multiple: false,
+    accept: '.rml, .RML'
   });
  
   return (
