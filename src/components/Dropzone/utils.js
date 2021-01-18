@@ -36,8 +36,6 @@ export const formatXMLData = (xmlData) => {
     throw error;
   }
   
-  // const data = xmlData.getElementsByTagName('relatorio')[0].children || [];
-
   const data = xmlData.getElementsByTagName('dados');
 
   const documents = chunkArray(data, 10, true);

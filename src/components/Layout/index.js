@@ -39,6 +39,14 @@ const Layout = ({ children }) => {
           <li>FGTS - Extrato de Conta Vinculada para Fins Recisórios</li>
         </ul>
       </section>
+      <section className="about d-flex flex-column align-items-center">
+        <h4>
+          Changelog
+        </h4>
+        <ul className="w-100">
+          <li>18/01/2021: agora é possível gerar extratos recisórios que possuem mais de um funcionário por arquivo RML</li>
+        </ul>
+      </section>
       <footer className="footer d-flex align-items-center justify-content-center">
           Desenvolvido por Pablo Cruz 
           <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/pablo-cruz-17901a177/">
