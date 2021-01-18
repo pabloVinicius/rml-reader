@@ -1,4 +1,5 @@
 import he from 'he';
+
 export const readFile = (file) => new Promise((res, rej) => {
   const reader = new FileReader();
  
@@ -11,6 +12,21 @@ export const readFile = (file) => new Promise((res, rej) => {
   reader.readAsText(file);
 });
 
+// Adapted from https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
+export const chunkArray = (myArray, chunkSize, strict) => {
+  let results = [];
+
+  while (myArray.length) {
+    results.push(myArray.splice(0, chunkSize));
+  }
+
+  if (strict) {
+    results = results.filter((array) => array.length === chunkSize);
+  }
+
+  return results;
+};
+
 export const formatXMLData = (xmlData) => {
   const type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
   
@@ -20,38 +36,46 @@ export const formatXMLData = (xmlData) => {
     throw error;
   }
   
-  const data = xmlData.getElementsByTagName('relatorio')[0].children || [];
+  // const data = xmlData.getElementsByTagName('relatorio')[0].children || [];
 
-  const labels = xmlData.getElementsByTagName('legenda') || [];
-  const monthsData = data[5].getElementsByTagName('col') || [];
-  const [tableTitle, ...tableData] = data[7]?.children || [];
-  const [footerTitle, ...footerData] = data[9]?.children || [];
-  const dateInfo = data[11]?.children[0]?.children || [];
+  const data = xmlData.getElementsByTagName('dados');
 
-  const labelsText = labels.reduce((acc, cur) => {
-    const elements = cur.children.map(ch => he.decode(ch?.value || ''));
-    return [...acc, ...elements];
-  }, []);
+  const documents = chunkArray(data, 10, true);
+
+  const formatted = documents.map((doc) => {
+    const labelsData = doc[1].getElementsByTagName('legenda') || [];
+    const monthsData = doc[3].getElementsByTagName('col') || [];
+    const [tableTitle, ...tableData] = doc[5]?.children || [];
+    const [footerTitle, ...footerData] = doc[7]?.children || [];
+    const dateInfo = doc[9]?.children[0]?.children || [];
   
-  const monthsText = monthsData.map((el) => el?.value || '');
+    const labelsText = labelsData.reduce((acc, cur) => {
+      const elements = cur.children.map(ch => he.decode(ch?.value || ''));
+      return [...acc, ...elements];
+    }, []);
+    
+    const monthsText = monthsData.map((el) => el?.value || '');
+  
+    const tableTexts = tableData.map((el) => 
+      el.children.map((ch) => he.decode(ch?.value || ''))
+    );
+  
+    const footerTexts = footerData.map((el) => 
+      el.children.map((ch) => he.decode(ch?.value || ''))
+    );
+  
+    const dateTexts = dateInfo.map((el) => he.decode(el?.value || ''));
+  
+    return {
+      labels: labelsText,
+      months: monthsText,
+      table: tableTexts,
+      footer: footerTexts,
+      date: dateTexts,
+    };
+  });
 
-  const tableTexts = tableData.map((el) => 
-    el.children.map((ch) => he.decode(ch?.value || ''))
-  );
-
-  const footerTexts = footerData.map((el) => 
-    el.children.map((ch) => he.decode(ch?.value || ''))
-  );
-
-  const dateTexts = dateInfo.map((el) => he.decode(el?.value || ''));
-
-  return {
-    labels: labelsText,
-    months: monthsText,
-    table: tableTexts,
-    footer: footerTexts,
-    date: dateTexts,
-  };
+  return formatted;
 };
 
 export const documentPageStyles = `
@@ -104,8 +128,11 @@ export const documentPageStyles = `
     height: 297mm;
     max-height: 297mm;
     overflow: hidden;
-    padding: 25mm 15mm 10mm 20mm;
-    
+    padding: 25mm 15mm 10mm 20mm;  
+  }
+
+  .container:not(:last-of-type) {
+    margin-bottom: 30px;
   }
 
   .header {
@@ -201,10 +228,14 @@ export const documentPageStyles = `
     .container {
       border: none;
     }
+
+    .container:not(:last-of-type) {
+      margin-bottom: 0;
+    }
   }
 `;
 
 export const errorMessages = {
-  NOT_SUPPORTED: <span>Esse tipo de documento ainda não é suportado, <a href="mailto:vinicius.pablo.18@gmail.com">me mande um email</a> com um exemplo do arquivo para que eu implemente no sistema. Verifique na lista abaixo os tipos suportados atualmente.</span>,
+  NOT_SUPPORTED: <span>Esse tipo de documento ainda não é suportado, <a href="mailto:vinicius.pablo.18@gmail.com">me mande um email</a> com um exemplo do arquivo para que eu implemente no sistema (abra o arquivo e mude as informações sensíveis como CNPJ, nomes  etc). Verifique na lista abaixo os tipos suportados atualmente.</span>,
   default: 'Algo deu errado no processamento do arquivo. Verifique-o e tente novamente.'
 };

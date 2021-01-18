@@ -47,8 +47,11 @@ button {
   height: 297mm;
   max-height: 297mm;
   overflow: hidden;
-  padding: 25mm 15mm 10mm 20mm;
-  
+  padding: 25mm 15mm 10mm 20mm;  
+}
+
+.container:not(:last-of-type) {
+  margin-bottom: 30px;
 }
 
 .header {
@@ -143,5 +146,9 @@ h2 {
   
   .container {
     border: none;
+  }
+
+  .container:not(:last-of-type) {
+    margin-bottom: 0;
   }
 }
