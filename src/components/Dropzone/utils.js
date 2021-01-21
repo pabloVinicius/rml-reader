@@ -1,4 +1,5 @@
 import he from 'he';
+import { parseDocument } from '../../utils/parser';
 
 export const readFile = (file) => new Promise((res, rej) => {
   const reader = new FileReader();
@@ -68,12 +69,26 @@ const formatEXT = (xmlData) => {
   return formatted;
 };
 
+const formatANL = (xmlData) => {
+  const data = xmlData.getElementsByTagName('dados');
+
+  const parsed = parseDocument(data);
+
+  console.log({ parsed })
+};
+
 const docTypesFunctions = {
   EXT: formatEXT,
+  ANL: formatANL,
 };
 
 export const formatXMLData = (xmlData) => {
-  const type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
+  let type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
+  const reportsSize = xmlData.getElementsByTagName('relatorio')[0]?.children?.length;
+
+  if (type === 'EXT' && reportsSize <= 10) {
+    type = 'ANL';
+  }
 
   const formatter = docTypesFunctions[type];
 
