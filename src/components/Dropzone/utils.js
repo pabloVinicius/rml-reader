@@ -74,7 +74,8 @@ const formatANL = (xmlData) => {
 
   const parsed = parseDocument(data);
 
-  console.log({ parsed })
+  console.log({ parsed });
+  return parsed;
 };
 
 const docTypesFunctions = {

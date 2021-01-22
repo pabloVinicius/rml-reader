@@ -5,6 +5,7 @@ import { Alert, Button, Spinner } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import XMLParser from 'react-xml-parser';
 import Document from '../Document';
+import ANL from '../Document/ANL';
 import { formatXMLData, readFile, documentPageStyles, errorMessages } from './utils';
 import './styles.css';
 
@@ -21,6 +22,7 @@ const Dropzone = () => {
 
     const documents = {
       EXT: Document,
+      ANL: ANL
     };
 
     const MyDocument = documents[formattedValue.type];
