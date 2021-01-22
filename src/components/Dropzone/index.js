@@ -56,7 +56,7 @@ const Dropzone = () => {
       setShowButton(true);
       window.gtag('event', 'format_success');
     } catch (err) {
-      Sentry.captureException(err);
+      // Sentry.captureException(err);
       window.gtag('event', 'format_failure');
       setError(err?.name || 'default');
     } finally {
