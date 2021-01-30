@@ -10,7 +10,7 @@ https://visualizadorrml.data.eti.br/
 ## Documentos suportados
 - [x] FGTS - Extrato de Conta Vinculada para Fins Recisórios
 - [x] FGTS - Extrato Analítico do Trabalhador
-- [] FGTS - Relatório de Contas com Inconsistências Cadastrais
+- [ ] FGTS - Relatório de Contas com Inconsistências Cadastrais
 
 > Devido à implementação abstrata do parser, outros documentos podem funcionar, porém somente os que estão marcados foram testados
 
