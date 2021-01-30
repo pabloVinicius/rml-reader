@@ -125,6 +125,7 @@ export const documentPageStyles = `
 
   .section-title > div {
     flex: 1;
+    text-align: center !important;
   }
 
   .table-line {
@@ -134,6 +135,30 @@ export const documentPageStyles = `
   .table-line > div {
     flex: 1;
     text-align: center;
+  }
+
+  .VALOR_EM_REAL {
+    text-align: left !important;
+    margin-top: 22px;
+  }
+
+  .DATA_GERACAO,
+  .CHAVE_SEGURANCA {
+    margin-top: 22px;
+  }
+
+  .DATA_GERACAO,
+  .HISTORICO {
+    text-align: left !important;
+  }
+
+  .CHAVE-SEGURANCA,
+  .VALOR_LANC {
+    text-align: right !important;
+  }
+
+  .TIT_COMPET {
+    margin-bottom: 22px;
   }
 
   @media print {

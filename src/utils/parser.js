@@ -38,7 +38,7 @@ const labelsParser = (data) => {
         {data.map((line, lineId) => (
           <div key={lineId} className="labels-line">
             {line.children.map((label, labelId) => (
-              <div key={labelId}>
+              <div className={label?.attributes?.nome} key={labelId}>
                 {he.decode(label.value)}
               </div>
             ))}
@@ -56,7 +56,9 @@ const sectionTitleParser = (data) => {
     element: (
       <div className="section-title">
         {data.map((row, rowId) => (
-          <div key={rowId}>{he.decode(row.value)}</div>
+          <div className={row?.attributes?.nome} key={rowId}>
+            {he.decode(row.value)}
+          </div>
         ))}
       </div>
     ),
@@ -69,7 +71,9 @@ const tableLineParser = (data) => {
     element: (
       <div className="table-line">
         {data.map((row, rowId) => (
-          <div key={rowId}>{he.decode(row.value)}</div>
+          <div className={row?.attributes?.nome} key={rowId}>
+            {he.decode(row.value)}
+          </div>
         ))}
       </div>
     ),
@@ -85,6 +89,7 @@ const parsingFunctions = {
 };
 
 export const parseDocument = (data) => {
+  console.log({ data })
   const elements = data.reduce((acc, cur) => {
     const internal = cur.children.map((el) => {
       const parser = parsingFunctions[el.name] || parsingFunctions.default;
