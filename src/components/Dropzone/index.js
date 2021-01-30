@@ -5,14 +5,13 @@ import { Alert, Button, Spinner } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import XMLParser from 'react-xml-parser';
 import Document from '../Document';
-import ANL from '../Document/ANL';
 import { formatXMLData, readFile, documentPageStyles, errorMessages } from './utils';
 import './styles.css';
 
 const Dropzone = () => {
   const [error, setError] = useState();
   const [showButton, setShowButton] = useState(false);
-  const [formattedValue, setFormattedValue] = useState();
+  const [formattedDocument, setFormattedDocument] = useState();
   const [filename, setFilename] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -20,14 +19,7 @@ const Dropzone = () => {
     window.gtag('event', 'open_print');
     const container = document.createElement('div');
 
-    const documents = {
-      EXT: ANL,
-      ANL: ANL
-    };
-
-    const MyDocument = documents[formattedValue.type];
-
-    container.innerHTML = renderToString(<MyDocument data={formattedValue.data} />);
+    container.innerHTML = renderToString(<Document data={formattedDocument} />);
 
     const styles = document.createElement('style');
     styles.setAttribute('type', 'text/css');
@@ -47,7 +39,7 @@ const Dropzone = () => {
   const clearState = () => {
     setError();
     setShowButton(false);
-    setFormattedValue();
+    setFormattedDocument();
     setFilename('');
   };
 
@@ -61,13 +53,14 @@ const Dropzone = () => {
       
       const xml = new XMLParser().parseFromString(fileString);
       const formatted = formatXMLData(xml);
-      setFormattedValue(formatted);
+      setFormattedDocument(formatted);
       setShowButton(true);
       window.gtag('event', 'format_success');
     } catch (err) {
       console.error(err)
       Sentry.captureException(err);
       window.gtag('event', 'format_failure');
+      console.log(err?.name)
       setError(err?.name || 'default');
     } finally {
       setLoading(false);
@@ -90,7 +83,7 @@ const Dropzone = () => {
           onClose={() => setError(false)}
           dismissible
         >
-          {errorMessages[error]}
+          {errorMessages[error] || errorMessages.default}
         </Alert>
       )}
       <div
