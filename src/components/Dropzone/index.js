@@ -21,7 +21,7 @@ const Dropzone = () => {
     const container = document.createElement('div');
 
     const documents = {
-      EXT: Document,
+      EXT: ANL,
       ANL: ANL
     };
 
@@ -65,6 +65,7 @@ const Dropzone = () => {
       setShowButton(true);
       window.gtag('event', 'format_success');
     } catch (err) {
+      console.error(err)
       Sentry.captureException(err);
       window.gtag('event', 'format_failure');
       setError(err?.name || 'default');

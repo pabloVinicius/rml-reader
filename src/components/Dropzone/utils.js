@@ -79,7 +79,7 @@ const formatANL = (xmlData) => {
 };
 
 const docTypesFunctions = {
-  EXT: formatEXT,
+  EXT: formatANL,
   ANL: formatANL,
 };
 
@@ -103,160 +103,209 @@ export const formatXMLData = (xmlData) => {
 };
 
 export const documentPageStyles = `
-  * {
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-  }
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
 
-  body {
-    margin: 0;
-    padding: 0;
-  }
+body {
+  margin: 0;
+  padding: 0;
+}
 
-  button {
-    font-size: 20px;
-  }
+button {
+  font-size: 20px;
+}
 
-  @page {
-    size: A4;
-    margin: 0;
+@page {
+  size: A4;
+  margin: 0;
+}
+
+.wrapper {
+  max-width: 80rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+.wrapper > button {
+  margin: 1rem 0;
+}
+
+.container,
+.header,
+.labels,
+.section,
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container {
+  border: 1px solid black;
+  width: 210mm;
+  height: 297mm;
+  max-height: 297mm;
+  overflow: hidden;
+  padding: 25mm 15mm 10mm 20mm;  
+}
+
+.container:not(:last-of-type) {
+  margin-bottom: 30px;
+}
+
+.header {
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.labels-line {
+  display: flex;
+}
+
+.labels-line > span {
+  flex: 1;
+  font-weight: bold;
+}
+
+.labels-line > span:not(:last-of-type) {
+  margin-right: 10px;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+.section > h3 {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.months > span:not(:last-of-type) {
+  margin-right: 26px;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 19px;
+  margin: 0;
+}
+
+.table-row {
+  display: flex;
+}
+
+.table-row > span {
+  flex: 1;
+}
+
+.table-row > span:nth-child(1) {
+  text-align: center;
+}
+
+.table-row > span:nth-child(3) {
+  text-align: right;
+}
+
+.table-title > span {
+  font-weight: bold;
+  text-align: center !important;
+}
+
+.table-row-centered > span {
+  text-align: center !important;
+}
+
+.obs {
+  margin: 30px 0;
+}
+
+.date {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
   }
 
   .wrapper {
-    max-width: 80rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 2rem;
+    margin: 0;
   }
 
   .wrapper > button {
-    margin: 1rem 0;
+    display: none;
   }
-
-  .container,
-  .header,
-  .labels,
-  .section,
-  .table {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
+  
   .container {
-    border: 1px solid black;
-    width: 210mm;
-    height: 297mm;
-    max-height: 297mm;
-    overflow: hidden;
-    padding: 25mm 15mm 10mm 20mm;  
+    border: none;
   }
 
   .container:not(:last-of-type) {
-    margin-bottom: 30px;
+    margin-bottom: 0;
   }
+}
 
-  .header {
-    align-items: center;
-    margin-bottom: 30px;
-  }
+.page-title {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 600;
+}
 
-  .labels-line {
-    display: flex;
-  }
+.page-subtitle {
+  font-size: 19px;
+  text-align: center;
+  font-weight: 600;
+}
 
-  .labels-line > span {
-    flex: 1;
-    font-weight: bold;
-  }
+.labels {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 22px;
+}
 
-  .labels-line > span:not(:last-of-type) {
-    margin-right: 10px;
-  }
+.labels-line {
+  display: flex;
+}
 
-  .section {
-    margin-top: 30px;
-  }
+.labels-line > div {
+  flex: 1;
+}
 
-  .section > h3 {
-    text-align: center;
-    margin: 0;
-    margin-bottom: 20px;
-  }
+.section-title {
+  text-align: center;
+  margin: 0;
+  margin-top: 22px;
+  font-weight: 600;
+  display: flex;
+}
 
-  .months > span:not(:last-of-type) {
-    margin-right: 26px;
-  }
+.section-title > div {
+  flex: 1;
+}
 
-  h1 {
-    font-size: 24px;
-    margin: 0;
-  }
+.table-line {
+  display: flex;
+}
 
-  h2 {
-    font-size: 19px;
-    margin: 0;
-  }
+.table-line > div {
+  flex: 1;
+  text-align: center;
+}
 
-  .table-row {
-    display: flex;
-  }
-
-  .table-row > span {
-    flex: 1;
-  }
-
-  .table-row > span:nth-child(1) {
-    text-align: center;
-  }
-
-  .table-row > span:nth-child(3) {
-    text-align: right;
-  }
-
-  .table-title > span {
-    font-weight: bold;
-    text-align: center !important;
-  }
-
-  .table-row-centered > span {
-    text-align: center !important;
-  }
-
-  .obs {
-    margin: 30px 0;
-  }
-
-  .date {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  @media print {
-    html, body {
-      width: 210mm;
-      height: 297mm;
-    }
-
-    .wrapper {
-      margin: 0;
-    }
-
-    .wrapper > button {
-      display: none;
-    }
-    
-    .container {
-      border: none;
-    }
-
-    .container:not(:last-of-type) {
-      margin-bottom: 0;
-    }
-  }
 `;
 
 export const errorMessages = {

@@ -152,3 +152,51 @@ h2 {
     margin-bottom: 0;
   }
 }
+
+.page-title {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.page-subtitle {
+  font-size: 19px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.labels {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 22px;
+}
+
+.labels-line {
+  display: flex;
+}
+
+.labels-line > div {
+  flex: 1;
+}
+
+.section-title {
+  text-align: center;
+  margin: 0;
+  margin-top: 22px;
+  font-weight: 600;
+  display: flex;
+}
+
+.section-title > div {
+  flex: 1;
+}
+
+.table-line {
+  display: flex;
+}
+
+.table-line > div {
+  flex: 1;
+  text-align: center;
+}
