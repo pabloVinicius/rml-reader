@@ -11,14 +11,15 @@ import './styles.css';
 const Dropzone = () => {
   const [error, setError] = useState();
   const [showButton, setShowButton] = useState(false);
-  const [formattedValue, setFormattedValue] = useState();
+  const [formattedDocument, setFormattedDocument] = useState();
   const [filename, setFilename] = useState('');
   const [loading, setLoading] = useState(false);
 
   const printFile = () => {
     window.gtag('event', 'open_print');
     const container = document.createElement('div');
-    container.innerHTML = renderToString(<Document data={formattedValue} />);
+
+    container.innerHTML = renderToString(<Document data={formattedDocument} />);
 
     const styles = document.createElement('style');
     styles.setAttribute('type', 'text/css');
@@ -38,7 +39,7 @@ const Dropzone = () => {
   const clearState = () => {
     setError();
     setShowButton(false);
-    setFormattedValue();
+    setFormattedDocument();
     setFilename('');
   };
 
@@ -52,7 +53,7 @@ const Dropzone = () => {
       
       const xml = new XMLParser().parseFromString(fileString);
       const formatted = formatXMLData(xml);
-      setFormattedValue(formatted);
+      setFormattedDocument(formatted);
       setShowButton(true);
       window.gtag('event', 'format_success');
     } catch (err) {
@@ -66,12 +67,9 @@ const Dropzone = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    maxFiles:
-    1,
-    multiple:
-    false,
-    accept:
-    '.rml, .RML'
+    maxFiles: 1,
+    multiple: false,
+    accept: '.rml, .RML'
   });
  
   return (
@@ -83,7 +81,7 @@ const Dropzone = () => {
           onClose={() => setError(false)}
           dismissible
         >
-          {errorMessages[error]}
+          {errorMessages[error] || errorMessages.default}
         </Alert>
       )}
       <div

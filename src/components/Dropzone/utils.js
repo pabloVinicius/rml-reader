@@ -1,4 +1,4 @@
-import he from 'he';
+import { parseDocument } from '../../utils/parser';
 
 export const readFile = (file) => new Promise((res, rej) => {
   const reader = new FileReader();
@@ -28,52 +28,9 @@ export const chunkArray = (myArray, chunkSize, strict) => {
 };
 
 export const formatXMLData = (xmlData) => {
-  const type = xmlData.getElementsByTagName('HEADERREPORT_TYPE')[0].value;
-  
-  if (type !== 'EXT') {
-    const error = new Error(`Document type not supported: ${type}`);
-    error.name = 'NOT_SUPPORTED';
-    throw error;
-  }
-  
   const data = xmlData.getElementsByTagName('dados');
 
-  const documents = chunkArray(data, 10, true);
-
-  const formatted = documents.map((doc) => {
-    const labelsData = doc[1].getElementsByTagName('legenda') || [];
-    const monthsData = doc[3].getElementsByTagName('col') || [];
-    const [tableTitle, ...tableData] = doc[5]?.children || [];
-    const [footerTitle, ...footerData] = doc[7]?.children || [];
-    const dateInfo = doc[9]?.children[0]?.children || [];
-  
-    const labelsText = labelsData.reduce((acc, cur) => {
-      const elements = cur.children.map(ch => he.decode(ch?.value || ''));
-      return [...acc, ...elements];
-    }, []);
-    
-    const monthsText = monthsData.map((el) => he.decode(el?.value) || '');
-  
-    const tableTexts = tableData.map((el) => 
-      el.children.map((ch) => he.decode(ch?.value || ''))
-    );
-  
-    const footerTexts = footerData.map((el) => 
-      el.children.map((ch) => he.decode(ch?.value || ''))
-    );
-  
-    const dateTexts = dateInfo.map((el) => he.decode(el?.value || ''));
-  
-    return {
-      labels: labelsText,
-      months: monthsText,
-      table: tableTexts,
-      footer: footerTexts,
-      date: dateTexts,
-    };
-  });
-
-  return formatted;
+  return parseDocument(data);
 };
 
 export const documentPageStyles = `
@@ -112,9 +69,7 @@ export const documentPageStyles = `
 
   .container,
   .header,
-  .labels,
-  .section,
-  .table {
+  .labels {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -133,80 +88,77 @@ export const documentPageStyles = `
     margin-bottom: 30px;
   }
 
-  .header {
-    align-items: center;
-    margin-bottom: 30px;
+  .page-title {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .page-subtitle {
+    font-size: 19px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .labels {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 22px;
   }
 
   .labels-line {
     display: flex;
   }
 
-  .labels-line > span {
-    flex: 1;
-    font-weight: bold;
-  }
-
-  .labels-line > span:not(:last-of-type) {
-    margin-right: 10px;
-  }
-
-  .section {
-    margin-top: 30px;
-  }
-
-  .section > h3 {
-    text-align: center;
-    margin: 0;
-    margin-bottom: 20px;
-  }
-
-  .months > span:not(:last-of-type) {
-    margin-right: 26px;
-  }
-
-  h1 {
-    font-size: 24px;
-    margin: 0;
-  }
-
-  h2 {
-    font-size: 19px;
-    margin: 0;
-  }
-
-  .table-row {
-    display: flex;
-  }
-
-  .table-row > span {
+  .labels-line > div {
     flex: 1;
   }
 
-  .table-row > span:nth-child(1) {
+  .section-title {
+    text-align: center;
+    margin: 0;
+    margin-top: 22px;
+    font-weight: 600;
+    display: flex;
+  }
+
+  .section-title > div {
+    flex: 1;
+    text-align: center !important;
+  }
+
+  .table-line {
+    display: flex;
+  }
+
+  .table-line > div {
+    flex: 1;
     text-align: center;
   }
 
-  .table-row > span:nth-child(3) {
-    text-align: right;
+  .VALOR_EM_REAL {
+    text-align: left !important;
+    margin-top: 22px;
   }
 
-  .table-title > span {
-    font-weight: bold;
-    text-align: center !important;
+  .DATA_GERACAO,
+  .CHAVE_SEGURANCA {
+    margin-top: 22px;
   }
 
-  .table-row-centered > span {
-    text-align: center !important;
+  .DATA_GERACAO,
+  .HISTORICO {
+    text-align: left !important;
   }
 
-  .obs {
-    margin: 30px 0;
+  .CHAVE-SEGURANCA,
+  .VALOR_LANC {
+    text-align: right !important;
   }
 
-  .date {
-    display: flex;
-    justify-content: space-between;
+  .TIT_COMPET {
+    margin-bottom: 22px;
   }
 
   @media print {
