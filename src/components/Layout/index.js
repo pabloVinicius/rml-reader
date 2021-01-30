@@ -37,14 +37,10 @@ const Layout = ({ children }) => {
         </h4>
         <ul className="w-100">
           <li>FGTS - Extrato de Conta Vinculada para Fins Recisórios</li>
-        </ul>
-      </section>
-      <section className="about d-flex flex-column align-items-center">
-        <h4>
-          Changelog
-        </h4>
-        <ul className="w-100">
-          <li>18/01/2021: agora é possível gerar extratos recisórios que possuem mais de um funcionário por arquivo RML</li>
+          <li>FGTS - Extrato Analítico do Trabalhador</li>
+          <li>
+            OBS: outros documentos podem funcionar, porém somente os que estão acima foram testados. Qualquer problema relate no <a target="_blank" rel="noreferrer" href="https://github.com/pabloVinicius/rml-reader">GitHub</a> ou <a href="mailto:vinicius.pablo.18@gmail.com">me mande um email</a>.
+          </li>
         </ul>
       </section>
       <footer className="footer d-flex align-items-center justify-content-center">
