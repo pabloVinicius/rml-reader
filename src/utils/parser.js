@@ -84,6 +84,7 @@ const parsingFunctions = {
   subtitulo: subtitleParser,
   quebra: labelsParser,
   titulo: sectionTitleParser,
+  titulo2: sectionTitleParser,
   linha: tableLineParser,
   default: () => undefined,
 };
