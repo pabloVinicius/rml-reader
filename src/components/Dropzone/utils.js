@@ -30,159 +30,174 @@ export const chunkArray = (myArray, chunkSize, strict) => {
 export const formatXMLData = (xmlData) => {
   const data = xmlData.getElementsByTagName('dados');
 
+  console.log({ xmlData, data })
+
   return parseDocument(data);
 };
 
 export const documentPageStyles = `
-  * {
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-  }
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
 
-  body {
-    margin: 0;
-    padding: 0;
-  }
+body {
+  margin: 0;
+  padding: 0;
+}
 
-  button {
-    font-size: 20px;
-  }
+button {
+  font-size: 20px;
+}
 
-  @page {
-    size: A4;
-    margin: 0;
+@page {
+  size: A4;
+  margin: 0;
+}
+
+.wrapper {
+  max-width: 80rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+.wrapper > button {
+  margin: 1rem 0;
+}
+
+.container,
+.header,
+.labels {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container {
+  border: 1px solid black;
+  width: 210mm;
+  height: 297mm;
+  max-height: 297mm;
+  overflow: hidden;
+  padding: 25mm 15mm 10mm 20mm;  
+}
+
+.container:not(:last-of-type) {
+  margin-bottom: 30px;
+}
+
+.page-title {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.page-subtitle {
+  font-size: 19px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.labels {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 22px;
+}
+
+.labels-line {
+  display: flex;
+}
+
+.labels-line > div {
+  flex: 1;
+}
+
+.section-title {
+  text-align: center;
+  margin: 0;
+  margin-top: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.section-title > div {
+  flex: 1;
+  text-align: center !important;
+  padding: 0 2px;
+}
+
+.table-line {
+  display: flex;
+  align-items: center;
+}
+
+.table-line > div {
+  flex: 1;
+  text-align: center;
+}
+
+.VALOR_EM_REAL {
+  text-align: left !important;
+  margin-top: 22px;
+}
+
+.DATA_GERACAO,
+.CHAVE_SEGURANCA {
+  margin-top: 22px;
+}
+
+.NomeEmpreg,
+.DATA_GERACAO,
+.HISTORICO {
+  text-align: left !important;
+}
+
+.NomeEmpreg {
+  min-width: 135px;
+}
+
+.SaldoFinsRescisorios,
+.SaldoEmpreg,
+.TOTAL_GERAL_SALDO,
+.TOT_GER_FINS_RESC,
+.CHAVE-SEGURANCA,
+.VALOR_LANC {
+  text-align: right !important;
+}
+
+.TIT_COMPET {
+  margin-bottom: 22px;
+}
+
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
   }
 
   .wrapper {
-    max-width: 80rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 2rem;
+    margin: 0;
   }
 
   .wrapper > button {
-    margin: 1rem 0;
+    display: none;
   }
-
-  .container,
-  .header,
-  .labels {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
+  
   .container {
-    border: 1px solid black;
-    width: 210mm;
-    height: 297mm;
-    max-height: 297mm;
-    overflow: hidden;
-    padding: 25mm 15mm 10mm 20mm;  
+    border: none;
   }
 
   .container:not(:last-of-type) {
-    margin-bottom: 30px;
+    margin-bottom: 0;
   }
+}
 
-  .page-title {
-    font-size: 24px;
-    text-align: center;
-    font-weight: 600;
-  }
-
-  .page-subtitle {
-    font-size: 19px;
-    text-align: center;
-    font-weight: 600;
-  }
-
-  .labels {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 22px;
-  }
-
-  .labels-line {
-    display: flex;
-  }
-
-  .labels-line > div {
-    flex: 1;
-  }
-
-  .section-title {
-    text-align: center;
-    margin: 0;
-    margin-top: 22px;
-    font-weight: 600;
-    display: flex;
-  }
-
-  .section-title > div {
-    flex: 1;
-    text-align: center !important;
-  }
-
-  .table-line {
-    display: flex;
-  }
-
-  .table-line > div {
-    flex: 1;
-    text-align: center;
-  }
-
-  .VALOR_EM_REAL {
-    text-align: left !important;
-    margin-top: 22px;
-  }
-
-  .DATA_GERACAO,
-  .CHAVE_SEGURANCA {
-    margin-top: 22px;
-  }
-
-  .DATA_GERACAO,
-  .HISTORICO {
-    text-align: left !important;
-  }
-
-  .CHAVE-SEGURANCA,
-  .VALOR_LANC {
-    text-align: right !important;
-  }
-
-  .TIT_COMPET {
-    margin-bottom: 22px;
-  }
-
-  @media print {
-    html, body {
-      width: 210mm;
-      height: 297mm;
-    }
-
-    .wrapper {
-      margin: 0;
-    }
-
-    .wrapper > button {
-      display: none;
-    }
-    
-    .container {
-      border: none;
-    }
-
-    .container:not(:last-of-type) {
-      margin-bottom: 0;
-    }
-  }
 `;
 
 export const errorMessages = {

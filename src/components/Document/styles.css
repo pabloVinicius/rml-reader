@@ -85,15 +85,18 @@ button {
   margin-top: 22px;
   font-weight: 600;
   display: flex;
+  align-items: center;
 }
 
 .section-title > div {
   flex: 1;
   text-align: center !important;
+  padding: 0 2px;
 }
 
 .table-line {
   display: flex;
+  align-items: center;
 }
 
 .table-line > div {
@@ -111,11 +114,20 @@ button {
   margin-top: 22px;
 }
 
+.NomeEmpreg,
 .DATA_GERACAO,
 .HISTORICO {
   text-align: left !important;
 }
 
+.NomeEmpreg {
+  min-width: 135px;
+}
+
+.SaldoFinsRescisorios,
+.SaldoEmpreg,
+.TOTAL_GERAL_SALDO,
+.TOT_GER_FINS_RESC,
 .CHAVE-SEGURANCA,
 .VALOR_LANC {
   text-align: right !important;
