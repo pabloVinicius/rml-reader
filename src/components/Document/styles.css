@@ -92,16 +92,19 @@ button {
   flex: 1;
   text-align: center !important;
   padding: 0 2px;
+  word-break: break-word;
 }
 
 .table-line {
   display: flex;
   align-items: center;
+  margin-bottom: 2px;
 }
 
 .table-line > div {
   flex: 1;
   text-align: center;
+  word-break: break-all;
 }
 
 .VALOR_EM_REAL {
@@ -116,12 +119,23 @@ button {
 
 .NomeEmpreg,
 .DATA_GERACAO,
-.HISTORICO {
+.HISTORICO,
+.TOTAL_EMPRESA,
+.TOTAL_GERAL_REC {
   text-align: left !important;
 }
 
 .NomeEmpreg {
   min-width: 135px;
+}
+
+.NomeEmpreg,
+.TOTAL_EMPRESA,
+.TOTAL_GERAL_REC,
+.TOTAL_GERAL_SALDO,
+.SaldoEmpreg,
+.SaldoFinsRescisorios {
+  word-break: unset !important;
 }
 
 .SaldoFinsRescisorios,

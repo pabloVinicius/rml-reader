@@ -69,9 +69,14 @@ const sectionTitleParser = (data) => {
   };
 };
 
-const tableLineParser = (data) => {
+const tableLineParser = (data, reportType) => {
+  const reportsCosts = {
+    IS: 2,
+    default: 1.2,
+  };
+
   return {
-    cost: 1,
+    cost: reportsCosts[reportType] || reportsCosts.default,
     element: (
       <div className="table-line">
         {data.map((row, rowId) => (
@@ -95,16 +100,7 @@ const parsingFunctions = {
   default: () => undefined,
 };
 
-export const parseDocument = (data) => {
-  const elements = data.reduce((acc, cur) => {
-    const internal = cur.children.map((el, id) => {
-      const parser = parsingFunctions[el.name] || parsingFunctions.default;
-      return parser(el.children);
-    });
-
-    return [...acc, ...internal];
-  }, []);
-
+const chunkPages = (elements) => {
   const pageLimit = 75;
   let currentSum = 0;
   let currentPage = 0;
@@ -124,4 +120,19 @@ export const parseDocument = (data) => {
   }, { 0: [] });
 
   return Object.values(pages);
+}
+
+export const parseDocument = (data, reportType) => {
+  const elements = data.reduce((acc, cur) => {
+    const internal = cur.children.map((el, id) => {
+      const parser = parsingFunctions[el.name] || parsingFunctions.default;
+      return parser(el.children, reportType);
+    });
+
+    
+    return [...acc, ...internal];
+  }, []);
+  
+  
+  return chunkPages(elements);
 };
