@@ -29,8 +29,9 @@ export const chunkArray = (myArray, chunkSize, strict) => {
 
 export const formatXMLData = (xmlData) => {
   const data = xmlData.getElementsByTagName('dados');
+  const reportType = xmlData.getElementsByTagName('HEADERREPORT_TYPE')?.[0]?.value;
 
-  return parseDocument(data);
+  return parseDocument(data, reportType);
 };
 
 export const documentPageStyles = `
@@ -121,20 +122,26 @@ export const documentPageStyles = `
     margin-top: 22px;
     font-weight: 600;
     display: flex;
+    align-items: center;
   }
 
   .section-title > div {
     flex: 1;
     text-align: center !important;
+    padding: 0 2px;
+    word-break: break-word;
   }
 
   .table-line {
     display: flex;
+    align-items: center;
+    margin-bottom: 2px;
   }
 
   .table-line > div {
     flex: 1;
     text-align: center;
+    word-break: break-all;
   }
 
   .VALOR_EM_REAL {
@@ -147,11 +154,31 @@ export const documentPageStyles = `
     margin-top: 22px;
   }
 
+  .NomeEmpreg,
   .DATA_GERACAO,
-  .HISTORICO {
+  .HISTORICO,
+  .TOTAL_EMPRESA,
+  .TOTAL_GERAL_REC {
     text-align: left !important;
   }
 
+  .NomeEmpreg {
+    min-width: 135px;
+  }
+
+  .NomeEmpreg,
+  .TOTAL_EMPRESA,
+  .TOTAL_GERAL_REC,
+  .TOTAL_GERAL_SALDO,
+  .SaldoEmpreg,
+  .SaldoFinsRescisorios {
+    word-break: unset !important;
+  }
+
+  .SaldoFinsRescisorios,
+  .SaldoEmpreg,
+  .TOTAL_GERAL_SALDO,
+  .TOT_GER_FINS_RESC,
   .CHAVE-SEGURANCA,
   .VALOR_LANC {
     text-align: right !important;

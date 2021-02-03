@@ -1,4 +1,5 @@
 import he from 'he';
+import { formatToClassName } from './formatters';
 
 const subtitleParser = (data) => {
   const subtitleClasses = {
@@ -38,7 +39,10 @@ const labelsParser = (data) => {
         {data.map((line, lineId) => (
           <div key={lineId} className="labels-line">
             {line.children.map((label, labelId) => (
-              <div className={label?.attributes?.nome} key={labelId}>
+              <div
+                className={formatToClassName(label?.attributes?.nome)}
+                key={labelId}
+              >
                 {he.decode(label.value)}
               </div>
             ))}
@@ -56,7 +60,7 @@ const sectionTitleParser = (data) => {
     element: (
       <div className="section-title">
         {data.map((row, rowId) => (
-          <div className={row?.attributes?.nome} key={rowId}>
+          <div className={formatToClassName(row?.attributes?.nome)} key={rowId}>
             {he.decode(row.value)}
           </div>
         ))}
@@ -65,13 +69,18 @@ const sectionTitleParser = (data) => {
   };
 };
 
-const tableLineParser = (data) => {
+const tableLineParser = (data, reportType) => {
+  const reportsCosts = {
+    IS: 2,
+    default: 1.2,
+  };
+
   return {
-    cost: 1,
+    cost: reportsCosts[reportType] || reportsCosts.default,
     element: (
       <div className="table-line">
         {data.map((row, rowId) => (
-          <div className={row?.attributes?.nome} key={rowId}>
+          <div className={formatToClassName(row?.attributes?.nome)} key={rowId}>
             {he.decode(row.value)}
           </div>
         ))}
@@ -86,20 +95,12 @@ const parsingFunctions = {
   titulo: sectionTitleParser,
   titulo2: sectionTitleParser,
   linha: tableLineParser,
+  sumario: tableLineParser,
+  sumariog: sectionTitleParser,
   default: () => undefined,
 };
 
-export const parseDocument = (data) => {
-  console.log({ data })
-  const elements = data.reduce((acc, cur) => {
-    const internal = cur.children.map((el) => {
-      const parser = parsingFunctions[el.name] || parsingFunctions.default;
-      return parser(el.children);
-    });
-
-    return [...acc, ...internal];
-  }, []);
-
+const chunkPages = (elements) => {
   const pageLimit = 75;
   let currentSum = 0;
   let currentPage = 0;
@@ -119,4 +120,19 @@ export const parseDocument = (data) => {
   }, { 0: [] });
 
   return Object.values(pages);
+}
+
+export const parseDocument = (data, reportType) => {
+  const elements = data.reduce((acc, cur) => {
+    const internal = cur.children.map((el, id) => {
+      const parser = parsingFunctions[el.name] || parsingFunctions.default;
+      return parser(el.children, reportType);
+    });
+
+    
+    return [...acc, ...internal];
+  }, []);
+  
+  
+  return chunkPages(elements);
 };
