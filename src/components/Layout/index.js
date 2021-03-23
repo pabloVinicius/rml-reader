@@ -11,8 +11,11 @@ const Layout = ({ children }) => {
         <h1>Visualizador RML</h1>
         <h2>Conectividade Social Caixa</h2>
       </header>
+      <Alert variant="warning">
+          Atenção: esse sistema foi feito para abrir arquivos RML. Recentemente a Caixa tem passado a enviar apenas arquivos TXT. Esses arquivos NÃO funcionarão nesse sistema. Caso não consiga carregar seu arquivo (sendo ele TXT ou não), tente abri-lo com o bloco de notas.
+        </Alert>
       {showWarning && (
-        <Alert className="mt-3" variant="warning" onClose={() => setShowWarning(false)} dismissible>
+        <Alert variant="warning" onClose={() => setShowWarning(false)} dismissible>
           Atenção: esse sistema não funciona no Internet Explorer. Por favor, utilize um browser moderno, preferencialmente o Google Chrome.
         </Alert>
       )}
