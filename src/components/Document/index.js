@@ -1,4 +1,17 @@
 const DocumentPage = ({ data }) => {
+  console.log({ data })
+  if (typeof data === 'string') {
+    return (<div className="wrapper">
+        <div className="container">
+          <pre>
+            {data}
+
+          </pre>
+        </div>
+    </div>)
+  }
+
+  
   return (
     <div className="wrapper">
       <button id="print-button">

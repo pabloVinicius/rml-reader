@@ -1,6 +1,6 @@
 import { parseDocument } from '../../utils/parser';
 
-export const readFile = (file) => new Promise((res, rej) => {
+export const readFileAsText = (file) => new Promise((res, rej) => {
   const reader = new FileReader();
  
   reader.onabort = () => rej('Aborted');
@@ -32,6 +32,19 @@ export const formatXMLData = (xmlData) => {
   const reportType = xmlData.getElementsByTagName('HEADERREPORT_TYPE')?.[0]?.value;
 
   return parseDocument(data, reportType);
+};
+
+export const isFileRml = (fileString = "") => (
+  fileString.includes('<?rml version=')
+);
+
+export const formatTXTData = (fileString) => {
+  return fileString
+  let copy = fileString.replace(/↵/g, '<br/>');
+  // text.replace(/↵/, '<br/>');
+  // text.replace(/\u21B5/g,'<br/>')
+  console.log({ copy })
+  return copy;
 };
 
 export const documentPageStyles = `

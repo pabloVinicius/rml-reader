@@ -5,7 +5,7 @@ import { Alert, Button, Spinner } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import XMLParser from 'react-xml-parser';
 import Document from '../Document';
-import { formatXMLData, readFile, documentPageStyles, errorMessages } from './utils';
+import { formatXMLData, readFileAsText, documentPageStyles, errorMessages, isFileRml, formatTXTData } from './utils';
 import './styles.css';
 
 const Dropzone = () => {
@@ -48,14 +48,24 @@ const Dropzone = () => {
       setLoading(true);
       clearState();  
 
-      const fileString = await readFile(file);
+      const fileString = await readFileAsText(file);
       setFilename(file.name);
-      
-      const xml = new XMLParser().parseFromString(fileString);
-      const formatted = formatXMLData(xml);
+
+      const isRML = isFileRml(fileString);
+
+      let formatted;
+     
+      if (isRML) {
+        const xml = new XMLParser().parseFromString(fileString);
+        formatted = formatXMLData(xml);
+      } else {
+        formatted = formatTXTData(fileString);
+      }
+
       setFormattedDocument(formatted);
       setShowButton(true);
       window.gtag('event', 'format_success');
+
     } catch (err) {
       // Sentry.captureException(err);
       window.gtag('event', 'format_failure');
@@ -69,7 +79,7 @@ const Dropzone = () => {
     onDrop,
     maxFiles: 1,
     multiple: false,
-    accept: '.rml, .RML'
+    accept: '.rml, .RML, .txt, .TXT'
   });
  
   return (
